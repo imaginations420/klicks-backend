@@ -33,7 +33,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: true,       // required for HTTPS
+    secure: false,       // required for HTTPS
     httpOnly: true,     // prevents client-side JS access
     sameSite: 'none'    // required for cross-site cookies
   }
