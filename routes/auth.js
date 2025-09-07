@@ -4,7 +4,6 @@ const db = require('../db');
 
 const router = express.Router();
 
-// -------------------- REGISTER --------------------
 router.post('/register', async (req, res) => {
   const { email, password } = req.body;
   db.get('SELECT * FROM users WHERE email = ?', [email], async (err, user) => {
@@ -18,7 +17,6 @@ router.post('/register', async (req, res) => {
   });
 });
 
-// -------------------- LOGIN --------------------
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
   db.get('SELECT * FROM users WHERE email = ?', [email], async (err, user) => {
@@ -27,17 +25,14 @@ router.post('/login', (req, res) => {
     const match = await bcrypt.compare(password, user.password);
     if (!match) return res.status(400).json({ message: 'Invalid credentials' });
 
-    console.log
-    // ✅ Store user info in session
     req.session.userId = user.id;
-    req.session.email = user.email; // store email for easy access
+    req.session.email = user.email;
     console.log("Session after login:", req.session);
 
     res.json({ message: 'Login successful', email: user.email });
   });
 });
 
-// -------------------- LOGOUT --------------------
 router.post('/logout', (req, res) => {
   req.session.destroy(err => {
     if (err) return res.status(500).json({ message: 'Logout failed' });
@@ -46,25 +41,14 @@ router.post('/logout', (req, res) => {
   });
 });
 
-// -------------------- CHECK SESSION --------------------
 router.get('/check', (req, res) => {
   res.json({ loggedIn: !!req.session.userId });
 });
 
-// -------------------- DASHBOARD --------------------
-// Minimal check: return email if logged in, else "Guest"
-// -------------------- DASHBOARD --------------------
-// -------------------- DASHBOARD --------------------
 router.get('/dashboard', (req, res) => {
-  console.log('inside dashboard')
-  console.log(req)
-
-   console.log('session object:', req.session);
-   console.log('session object:', req.session.email);
-
   res.json({
     message: `Welcome to your dashboard!`,
-    email: req.session?.email || '' // optional: still include email if logged in
+    email: req.session?.email || 'Klickks'
   });
 });
 

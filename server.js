@@ -9,8 +9,6 @@ const app = express();
 const PORT = 5000;
 
 const allowedOrigins = [
-  "http://localhost:3000",
-  "https://kclicks-frontend.netlify.app",
   "https://kclicks-frontend2.vercel.app"
 ];
 
@@ -33,9 +31,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false,       // required for HTTPS
-    httpOnly: true,     // prevents client-side JS access
-    sameSite: 'none'    // required for cross-site cookies
+    secure: true,       
+    httpOnly: true,    
+    sameSite: 'none'   
   }
 }));
 
