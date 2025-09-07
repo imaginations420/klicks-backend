@@ -27,3 +27,5 @@ app.use(cors({
   origin: 'https://kclicks-frontend.netlify.app/',
   credentials: true
 }));
+
+hello
