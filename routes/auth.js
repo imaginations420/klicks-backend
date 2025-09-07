@@ -56,6 +56,9 @@ router.get('/check', (req, res) => {
 // -------------------- DASHBOARD --------------------
 // -------------------- DASHBOARD --------------------
 router.get('/dashboard', (req, res) => {
+  console.log('inside dashboard')
+  console.log(req)
+
   res.json({
     message: `Welcome to your dashboard!`,
     email: req.session?.email || '' // optional: still include email if logged in
