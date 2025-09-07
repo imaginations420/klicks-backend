@@ -29,11 +29,16 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 app.use(session({
-  secret: 'your_secret_key',
+  secret: '157a79e613c12c8eae618a04ed5baca4',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } // set to true if using HTTPS
+  cookie: {
+    secure: true,       // required for HTTPS
+    httpOnly: true,     // prevents client-side JS access
+    sameSite: 'none'    // required for cross-site cookies
+  }
 }));
+
 
 app.use('/api/auth', authRoutes);
 
