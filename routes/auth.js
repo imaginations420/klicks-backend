@@ -27,6 +27,7 @@ router.post('/login', (req, res) => {
     const match = await bcrypt.compare(password, user.password);
     if (!match) return res.status(400).json({ message: 'Invalid credentials' });
 
+    console.log
     // ✅ Store user info in session
     req.session.userId = user.id;
     req.session.email = user.email; // store email for easy access
@@ -53,16 +54,14 @@ router.get('/check', (req, res) => {
 // -------------------- DASHBOARD --------------------
 // Minimal check: return email if logged in, else "Guest"
 // -------------------- DASHBOARD --------------------
+// -------------------- DASHBOARD --------------------
 router.get('/dashboard', (req, res) => {
-  if (!req.session || !req.session.userId) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
-
   res.json({
-    message: `Welcome to your dashboard, ${req.session.email}!`,
-    email: req.session.email
+    message: `Welcome to your dashboard!`,
+    email: req.session?.email || '' // optional: still include email if logged in
   });
 });
+
 
 
 module.exports = router;
